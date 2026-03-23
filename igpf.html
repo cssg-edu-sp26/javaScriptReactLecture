@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="igpf.css">
+  </head>
+  <body>
+    <div class="profile">
+      <div class="header">
+
+        <div class="pfp">
+          <img src="imgs/Nika_Anime_Infobox.webp" class="pfp">
+        </div>
+
+        <div class="meta">
+          <div id="name">sungodnika</div>
+          <div id="stats">
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="body">
+      </div>
+      <div class="footer">
+        my very cool footer - gabriel great
+      </div>
+
+      <div class="overlay">
+        <div class="overlayPic"></div>
+        <div class="overlayMeta">
+          Comments
+          <div class="overlayComments">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      class StatModel{
+        constructor(name, amount){
+          this.name = name
+          this.amount = amount
+
+          this.element = document.createElement("div")
+          this.element.className = "stat"
+
+          this.nameElement = document.createElement("div")
+          this.amountElement = document.createElement("div")
+
+          this.nameElement.textContent = this.name
+          this.amountElement.textContent = this.amount
+
+          this.element.appendChild(this.nameElement)
+          this.element.appendChild(this.amountElement)
+
+          const parentDiv = document.getElementById("stats")
+          parentDiv.appendChild(this.element)
+        }
+
+        // thought I was gonna use this, but did not lol
+        increaseAmountAndUpdate(){
+          this.amount++
+          this.amountElement.textContent = this.amount
+        }
+      }
+
+      const frStat = new StatModel("count", 90)
+      const folstat = new StatModel("count", 90)
+      const flinStat = new StatModel("count", 90)
+
+      class PostModel{
+        constructor(imgLink, caption){
+          this.imgLink = imgLink
+
+          this.element = document.createElement("img")
+
+          this.element.className = "post"
+          this.element.src = imgLink
+          this.element.style.cursor = "pointer"
+
+          this.captionDiv = document.createElement("div")
+          this.captionDiv.className = "caption"
+          this.captionDiv.innerHTML = caption
+
+          this.element.addEventListener("click", () => {
+            const overlayPic = document.querySelector(".overlayPic")
+
+            overlayPic.innerHTML = ""
+            document.querySelector(".overlayComments").innerHTML = ""
+
+            const displayPic = this.element.cloneNode(true)
+            displayPic.style.cursor = "default"
+            overlayPic.appendChild(displayPic)
+            overlayPic.appendChild(this.captionDiv)
+            
+
+            const commentAmount = Math.ceil(Math.random() * 20)
+            for(let i = 0; i < commentAmount; i++){
+              postComment()
+            }
+
+          })
+
+          const parentDiv = document.querySelector(".body")
+          parentDiv.appendChild(this.element)
+        }
+      }
+      
+      const myImgs = [
+        {
+          img: "imgs/grat.jpg",
+          caption: "Recent hackathon win with some buddies @ifoe @mo @vivi"
+        },
+        {
+          img: "imgs/road.jpg",
+          caption: "took this on the road to a boat racing event a while ago"
+        },
+        {
+          img: "imgs/pump.jpg",
+          caption: "pumpkin carving with roomate, they rotted after a month outside"
+        },
+        {
+          img: "imgs/rocks.jpg",
+          caption: "was biking and stopped to take this"
+        },
+        {
+          img: "imgs/keef.jpg",
+          caption: "this is not a filler image"
+        },
+        {
+          img: "imgs/dog.jpg",
+          caption: "this is not my dog"
+        },
+        {
+          img: "imgs/doodoogarbage.jpg",
+          caption: "this is not, yet another, filler image"
+        },
+      ]
+
+      myImgs.forEach(img => {
+        new PostModel(img.img, img.caption)
+      });
+
+      commenterNames = [
+        "student1",
+        "student2",
+        "student3",
+        "notstudent4",
+        "!!student4",
+        "livelovelain"
+      ]
+
+      comments = [
+        "want a cookie? take my cookies",
+        "wanna hang out ltr",
+        "Bro youre so cool! (not self glaze)",
+        "the sky is bootiful td :)",
+        "happy noises",
+        "just caught up in one piece",
+        "look at this guyyyyyyyy",
+        "wrote you in my death note ngl",
+        "good post good stuff",
+        "bad post bad stuff"
+      ]
+
+
+      function postComment(){
+        const comment = document.createElement('div')
+        comment.className = "comment"
+        comment.innerHTML = commenterNames[Math.floor(Math.random()*commenterNames.length)]
+                            + ": "
+                            + comments[Math.floor(Math.random()*comments.length)]
+        document.querySelector(".overlayComments").appendChild(comment)
+      }
+      
+      
+    </script>
+  </body>
+</html>
